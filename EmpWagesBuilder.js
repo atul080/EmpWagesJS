@@ -3,86 +3,36 @@
  * @Date 11-Feb-2022
  * Employee Wages
  */
-//constant declarations                        
-const MAX_HRS_IN_MONTH = 160;
-const NUM_OF_WORKING_DAYS = 20;                       
-let totalEmpHrs = 0;                                   
-let totalWorkingDays= 0; 
-let empDailyWageArr = new Array();
-let empDailyWageMap = new Map();
-let empDailyHrsMap = new Map();
-const IS_PART_TIME = 1;
-const IS_FULL_TIME = 2; 
-const PART_TIME_HOURS = 4;
-const FULL_TIME_HOURS = 8;
-const WAGE_PER_HOUR = 20; 
-
-function calcDailyWage(empHrs) 
-     { 
-       return empHrs * WAGE_PER_HOUR;
-     }
-     
-     function getWorkingHours(empCheck) 
-    { 
-      switch (empCheck) //case
-      { 
-        case IS_PART_TIME: 
-            return PART_TIME_HOURS; 
-        case IS_FULL_TIME: 
-            return FULL_TIME_HOURS; 
-        default: 
-            return 0; 
-    } 
-  }
-
-function calcDailyWage(empHrs) { 
-    return empHrs * WAGE_PER_HOUR; 
+class EmployeePayrollData{
+// property
+id;
+salary;                   
+// constructor
+constructor(id, name, salary) { 
+ this.id = id;
+ this.name = name;
+ this.salary = salary;
 }
-// UC 10 Object Creation
-let empDailyHrsAndWageArr = new Array();
-while (totalEmpHrs <= MAX_HRS_IN_MONTH && totalWorkingDays < NUM_OF_WORKING_DAYS) 
-{
-    totalWorkingDays++;
-    let empCheck = Math.floor(Math.random() * 10) % 3; 
-    let empHrs = getWorkingHours(empCheck);
-    totalEmpHrs += empHrs;
-    empDailyHrsAndWageArr.push(
-    {
-        dayNum: totalWorkingDays,
-        dailyHours: empHrs,
-        dailyWage: calcDailyWage(empHrs),
-        //greet(){
-         //       return 'Hii.Its greet!'+this.dayNum;
-       // },
-       toString() {
-       return '\nDay' + this.dayNum + ' => Working Hours is ' + this.dailyHours + 
-        ' And Wage Earned = ' + this.dailyWage},
-});
+
+// getter and setter method
+get name() 
+{ 
+    return this._name; 
 }
-console.log("UC 10 Showing Daily Hours Worked and Wage Earned: "+empDailyHrsAndWageArr);
 
-// UC 10A to UC 11D Using Object Functions along with Arrow Functions 
-let totalWages = empDailyHrsAndWageArr
-                .filter(dailyHrsAndWage => dailyHrsAndWage.dailyWage > 0)
-                .reduce((totalWage, dailyHrsAndWage) => totalWage += dailyHrsAndWage.dailyWage, 0); 
+set name(name) 
+{ 
+    this._name = name; 
+}
 
-let totalHours = empDailyHrsAndWageArr
-                .filter(dailyHrsAndWage => dailyHrsAndWage.dailyWage > 0)
-                .reduce((totalHours, dailyHrsAndWage)=> totalHours += dailyHrsAndWage.dailyHours, 0);
+// method
+toString() {
+     return "id=" + this.id + ", name='" + this.name + "', salary=" + this.salary;
+ }
+}
 
-console.log("UC 11A Total Hours:" +totalHours+ " Total Wages: "+totalWages);
+let employeePayrollData = new EmployeePayrollData(1, "Mark", 30000); 
+console.log(employeePayrollData.toString());
 
-process.stdout.write("UC 11B Logging Full Work Days")
-
-empDailyHrsAndWageArr.filter(dailyHrsAndWage => dailyHrsAndWage.dailyHours == 8) 
-                    .forEach(dailyHrsAndWage => process.stdout.write(dailyHrsAndWage.toString()));
-
-let partWorkingDayStrArr = empDailyHrsAndWageArr
-                          .filter(dailyHrsAndWage => dailyHrsAndWage.dailyHours == 4) 
-                          .map(dailyHrsAndWage => dailyHrsAndWage.toString()); 
-console.log("\nUC 11C PartWorkingDayStrings: "+ partWorkingDayStrArr);
-
-let nonWorkingDayNums = empDailyHrsAndWageArr
-                       .filter(dailyHrsAndWage => dailyHrsAndWage.dailyHours == 0) 
-                       .map(dailyHrsAndWage => dailyHrsAndWage.dayNum);
-console.log("UC 11D NonWorkingDayNums: "+nonWorkingDayNums);
+employeePayrollData.name = "john";
+console.log(employeePayrollData.toString());
